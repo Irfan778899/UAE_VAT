@@ -1,0 +1,42 @@
+// Copyright (c) 2026, 4C Solutions and contributors
+// For license information, please see license.txt
+
+frappe.query_reports["VAT 201 Audit Report"] = {
+	"filters": [
+		{
+			"fieldname": "company",
+			"label": __("Company"),
+			"fieldtype": "Link",
+			"options": "Company",
+			"default": frappe.defaults.get_user_default("Company"),
+			"reqd": 1
+		},
+		{
+			"fieldname": "from_date",
+			"label": __("From Date"),
+			"fieldtype": "Date",
+			"default": frappe.datetime.add_months(frappe.datetime.get_today(), -1),
+			"reqd": 1
+		},
+		{
+			"fieldname": "to_date",
+			"label": __("To Date"),
+			"fieldtype": "Date",
+			"default": frappe.datetime.get_today(),
+			"reqd": 1
+		},
+		{
+			"fieldname": "row_no",
+			"label": __("Row No"),
+			"fieldtype": "Select",
+			"options": "\n1a\n1b\n1c\n1d\n1e\n1f\n1g\n2\n3\n4\n5\n6\n7\n9\n10"
+		}
+	],
+	formatter: function(value, row, column, data, default_formatter) {
+		value = default_formatter(value, row, column, data);
+		if (data && data.is_bold) {
+			value = `<b>${value}</b>`;
+		}
+		return value;
+	}
+};
